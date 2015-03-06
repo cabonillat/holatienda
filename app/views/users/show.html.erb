@@ -1,24 +1,8 @@
 <h1>Detalle del usuario</h1>
 
-<h2>Nombre:</h2> <%= @user.name %>
+<h2>Nombre:</h2> <%= @user.name %> 
 <br/>
 <h2>Email:</h2> <%= @user.email %> 
-<br/>
-<h2>Avatar:</h2> <%= image_tag @user.avatar.thumb_medium.url %>
-<br/>
-
-<% @user.sells.each do |sell| %>
-	<div>
-		<h1><%= sell.id %></h1>
-		<table>
-			<% sell.line_items do |line_item|%>
-				<tr>
-					<td><%= line_item.quantity%></td>
-					<td><%= line_item.product.name%></td>
-				</tr>
-			<% end %>
-		</table>
-	</div>
-<%end%>
+<br/><br/>
 
 <%= link_to 'Volver al listado', url_for(controller: :users, action: :index) %>

@@ -1,19 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: {registrations: "registrations"}
+  devise_for :users, :controllers => { :registrations => "registrations" }
   root to: "users#index"
-
-  get "/auth/:provider/callback", to: "omni_sessions#create"
-
-  resources :promos
 
   resources :products
   resources :users do
-    collection do
-      get 'login', action: :login #users/login
-      post 'login', action: :do_login
-      delete 'login', action: :logout
-      get 'search' # users/search
+    collection do 
+      get "login", action: :login
+      post "login", action: :do_login
+      delete "login", action: :logout
     end
   end
 

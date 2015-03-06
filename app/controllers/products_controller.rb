@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
-	
   before_action :login_required
+	before_action :products_params, only: [:create]
 
   def index
   	@products = Product.all
@@ -17,9 +17,9 @@ class ProductsController < ApplicationController
   def create
   	@product = Product.new(products_params)
     if @product.save
-      redirect_to products_path, notice: "Todo bien!"
+      redirect_to products_path, notice: 'Todo bien!'
     else
-      render "new"
+      render 'new'
     end  
   end
 
@@ -28,4 +28,5 @@ class ProductsController < ApplicationController
   def products_params
   	params.require(:product).permit(:ref, :price, :quantity, :brand, :name, :description, :size, :color)
   end
+  
 end

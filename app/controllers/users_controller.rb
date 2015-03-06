@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-
-  before_action :load_user, only: [:show, :edit, :update, :destroy]
-
-  #users/
+  #users/index
   def index
   	@users = User.all
   	#puts "#{@users.inspect}"
@@ -10,6 +7,7 @@ class UsersController < ApplicationController
 
   #users/123
   def show
+  	@user = User.find(params[:id])
   end
 
   #users/new
@@ -19,7 +17,7 @@ class UsersController < ApplicationController
 
   #users/
   def create
-  	params_filtered = params.require(:user).permit(:name, :email, :password, :avatar)
+  	params_filtered = params.require(:user).permit(:name, :email, :password)
   	#params_filtered = {name: "michel", email:"michel@gmai.com", password:"2131312"}
   	@user = User.new(params_filtered)
   	if @user.save
@@ -29,31 +27,22 @@ class UsersController < ApplicationController
   	end
   end
 
-  def edit
-  end
-
+  #users/:id
   def update
-    params_filtered = params.require(:user).permit(:name, :email)
+    params_filtered = params.require(:user).permit(:name, :email, :password)
+    #params_filtered = {name: "michel", email:"michel@gmai.com", password:"2131312"}
+    @user = User.find(params[:id])
     if @user.update(params_filtered)
       redirect_to users_path
     else
-      render 'edit'
+      render 'new'
     end
   end
 
-  #delete /user/1
   def destroy
+    @user = User.find(params[:id])
     @user.destroy
-    redirect_to users_path, notice: 'Usuario eliminado'
-  end
-
-  def load_user
-    begin
-      @user = User.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to users_path, 
-        notice: 'El usuario no existe en el sistema'
-    end
+    redirect_to users_path
   end
 
   def login
@@ -63,25 +52,18 @@ class UsersController < ApplicationController
   def do_login
     params_filtered = params.require(:user).permit(:email, :password)
     @user = User.new(params_filtered)
-    user_fetch = @user.login
-    if user_fetch
-      session[:user_id] = user_fetch.id
-      redirect_to products_path, notice: 'Bienvenido a la tiendita'
+    if @user_logged = @user.login
+      session[:user_id] = @user_logged.id
+      redirect_to products_path, notice: "Bienvenido #{@user.name}"
     else
-      flash.now[:error] = 'Error al autenticarse'
+      flash[:error] = 'Ocurrio un error logeando al usuario'
       render 'login'
     end
   end
 
   def logout
     session[:user_id] = nil
-    redirect_to login_users_path, notice: 'Vuelve pronto :('
+    redirect_to login_users_path
   end
 
 end
-
-
-
-
-
-

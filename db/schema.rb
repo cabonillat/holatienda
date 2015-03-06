@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304003316) do
+ActiveRecord::Schema.define(version: 20150226223933) do
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   default: 0, null: false
@@ -51,31 +51,12 @@ ActiveRecord::Schema.define(version: 20150304003316) do
     t.datetime "updated_at",              null: false
   end
 
-  create_table "promos", force: :cascade do |t|
-    t.string   "title"
-    t.text     "content"
-    t.integer  "product_id"
-    t.date     "start_date"
-    t.date     "finish_date"
-    t.integer  "discount"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "sells", force: :cascade do |t|
     t.integer  "total"
     t.text     "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
-  end
-
-  create_table "stores", force: :cascade do |t|
-    t.string   "address"
-    t.string   "telephone"
-    t.integer  "num_employees"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -93,12 +74,6 @@ ActiveRecord::Schema.define(version: 20150304003316) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.string   "provider"
-    t.string   "uid"
-    t.string   "token"
-    t.string   "secret"
-    t.string   "url_photo"
-    t.string   "avatar"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

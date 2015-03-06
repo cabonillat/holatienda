@@ -1,10 +1,14 @@
+# rails g mailer register_mailer
 class RegisterMailer < ApplicationMailer
 
-	def register(user)
-		@user = user
-    mail :subject => 'Bienvido a la tiendita',
+  default from: "hello@mitiendita.com"
+
+  # metodo para enviar el email usa la plantilla /views/register_mailer/registration.html.erb
+  def registration(user)
+    @user = user
+    mail :subject => 'Mandrill rides the Rails!',
          :to      => @user.email,
-         :from    => ENV['GMAIL_USERNAME']
-	end
+         :from    => 'hello@landmoda.com'
+  end
 
 end
