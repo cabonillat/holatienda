@@ -7,4 +7,5 @@ class Product < ActiveRecord::Base
 
 	# Un producto tiene varios items de linea (Puede interpretarse como que un usuario tiene varios items en una factura)
 	has_many :line_items
+	has_many :promos
 end

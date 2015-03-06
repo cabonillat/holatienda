@@ -11,8 +11,8 @@
 		<th>Size</th>
 		<th>Color</th>
 	</tr>
-	<tr>
-		<% @products.each do |product|%>
+	<% @products.each do |product|%>
+		<tr>
 			<td><%= product.ref%></td>
 			<td><%= product.price%></td>
 			<td><%= product.quantity%></td>
@@ -22,6 +22,6 @@
 			<td><%= product.size%></td>
 			<td><%= product.color%></td>
 			<td><%= link_to 'Ver producto...', product_path(product)%></td>
-		<% end %>
-	</tr>		
+		</tr>
+	<% end %>		
 </table>

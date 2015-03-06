@@ -2,7 +2,7 @@
 
 <h4>Ref:</h4><%= @product.ref%> 
 <br/>
-<h4>Price:</h4> <%= @product.price%>
+<h4>Price:</h4> <%=number_to_currency(@product.price)%>
 <br/>
 <h4>Quantity:</h4> <%= @product.quantity%>
 <br/>

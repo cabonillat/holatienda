@@ -2,16 +2,27 @@
 <html>
 <head>
   <title>PruebaClass</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="menu">
-	<% if session[:user_id] %>
-		<%= link_to 'Cerrar sesion', login_users_path, method: :delete %>
-	<% end %>
-</div>
+
+<% if current_user %>
+    <span><%= current_user.name %></span>
+    <%= image_tag current_user.url_photo %>
+<% else %>
+    <%= link_to 'Iniciar con Twitter', '/auth/twitter' %>
+<% end %>
+
+<p class="notice"><%= notice %></p>
+
+<p class="alert"><%= alert %></p>
+
+<% if session[:user_id] %>
+    <%= link_to 'Cerrar sesion', login_users_path, method: :delete %>
+<% end %>
+
 <%= yield %>
 
 </body>
